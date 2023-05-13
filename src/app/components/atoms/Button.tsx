@@ -1,13 +1,14 @@
-import { ButtonProps } from "@/app/types/ButtonProps";
-import styled from "@emotion/styled";
+import styled from '@emotion/styled';
+
+import { ButtonProps } from '@/app/types/ButtonProps';
 
 const dynamicStyle = {
   size: {
     small: {
-      height: "32px",
+      height: '32px',
     },
     big: {
-      height: "48px",
+      height: '48px',
     },
   },
 };
@@ -33,4 +34,4 @@ const Blue = styled(Button)`
   ${({ disable }) => disable && `color: black`};
 `;
 
-export { Red, Blue };
+export { Blue, Red };
