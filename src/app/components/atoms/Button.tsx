@@ -8,7 +8,15 @@ const dynamicStyle = {
       height: '32px',
     },
     big: {
-      height: '48px',
+      height: '38px',
+    },
+  },
+  space: {
+    basic: {
+      padding: '10px 16px',
+    },
+    square: {
+      padding: '8px',
     },
   },
 };
@@ -17,21 +25,14 @@ const Button = styled.button<ButtonProps>`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100%;
   padding: 0;
-  ${({ size }) => size && dynamicStyle.size[size]}
+  ${({ size }) => (size ? dynamicStyle.size[size] : dynamicStyle.size.small)}
+  ${({ space }) => space && dynamicStyle.space[space]}
 `;
 
-const Red = styled(Button)`
-  background: red;
+const PinkPrimary = styled(Button)`
+  background: var(--pink);
   color: white;
-  ${({ disable }) => disable && `color: black`};
 `;
 
-const Blue = styled(Button)`
-  background: blue;
-  color: white;
-  ${({ disable }) => disable && `color: black`};
-`;
-
-export { Blue, Red };
+export { PinkPrimary };

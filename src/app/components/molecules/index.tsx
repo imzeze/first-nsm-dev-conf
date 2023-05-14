@@ -1,3 +1,4 @@
-import NavBar from "@/app/components/molecules/NavBar";
+import Header from '@/app/components/molecules/Header';
+import StudyItem from '@/app/components/molecules/StudyItem';
 
-export { NavBar };
+export { Header, StudyItem };

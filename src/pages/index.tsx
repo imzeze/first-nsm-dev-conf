@@ -1,11 +1,12 @@
-import { Button } from "@/app/components/atoms";
-import { MainLayout } from "@/app/components/layouts";
+import { MainLayout } from '@/app/components/layouts';
+import MetaDataHead from '@/app/components/molecules/MetaDataHead';
+import MainTemplate from '@/app/components/templates/MainTemplate';
 
 const MainPage = () => {
   return (
     <>
-      <Button.Red size="small">1</Button.Red>
-      <Button.Blue size="small">2</Button.Blue>
+      <MetaDataHead />
+      <MainTemplate />
     </>
   );
 };

@@ -1,4 +1,5 @@
 export interface ButtonProps {
-  size: "small" | "big";
+  size?: 'small' | 'big';
   disable?: boolean;
+  space?: 'basic' | 'square';
 }

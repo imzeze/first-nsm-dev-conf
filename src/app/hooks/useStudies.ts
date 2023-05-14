@@ -10,6 +10,13 @@ const fetchStudies = async () => {
   return response.data;
 };
 
+const fetchStudiesFilter = async (filter: { [key: string]: string }) => {
+  const response = await axios<CommonModel<StudyModel>>('/api/studies', {
+    params: filter,
+  });
+  return response.data;
+};
+
 const useStudies = () => {
   return useQuery({
     queryKey: [STUDY_KEY.ALL],
@@ -17,11 +24,11 @@ const useStudies = () => {
   });
 };
 
-const useFilterStudies = ({ filter }: { filter: string }) => {
+const useFilterStudies = (filter: { [key: string]: string }) => {
   return useQuery({
-    queryKey: [STUDY_KEY.LIST(filter)],
-    queryFn: () => fetchStudies(),
+    queryKey: [STUDY_KEY.LIST(Object.keys(filter).join(', '))],
+    queryFn: () => fetchStudiesFilter(filter),
   });
 };
 
-export { fetchStudies, useFilterStudies, useStudies };
+export { useFilterStudies, useStudies };
