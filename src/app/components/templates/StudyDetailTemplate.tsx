@@ -2,18 +2,20 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { format, isSameDay, isSameMonth, isSameYear } from 'date-fns';
-import { useRouter } from 'next/router';
 import { useMemo } from 'react';
 
 import { Button } from '@/app/components/atoms';
+import { useLocalStorage } from '@/app/hooks/useLocalStorage';
 import { useStudyItem } from '@/app/hooks/useStudyItem';
 
-const StudyDetailTemplate = () => {
-  const router = useRouter();
-  const { id } = router.query;
+const StudyDetailTemplate = ({ id }: { id: string }) => {
+  const { storedValue, addValue, removeValue } = useLocalStorage('myStudy');
   const { data, isLoading } = useStudyItem(String(id));
   const payload = data?.payload;
 
+  const isMystudy = storedValue
+    ? Object.keys(storedValue).findIndex((id) => id === `${payload?.id}`) >= 0
+    : false;
   const time = useMemo(() => {
     if (!payload) return '';
 
@@ -59,9 +61,27 @@ const StudyDetailTemplate = () => {
         </p>
       </h1>
       <ButtonContainer>
-        <Button.PinkPrimary size="big" space="basic" onClick={(e) => {}}>
-          강의 담기
-        </Button.PinkPrimary>
+        {isMystudy ? (
+          <Button.Cancel
+            size="big"
+            space="basic"
+            onClick={(e) => {
+              removeValue(`${payload?.id}`);
+            }}
+          >
+            강의 담기 취소
+          </Button.Cancel>
+        ) : (
+          <Button.PinkPrimary
+            size="big"
+            space="basic"
+            onClick={(e) => {
+              addValue({ [`${payload?.id}`]: true });
+            }}
+          >
+            강의 담기
+          </Button.PinkPrimary>
+        )}
       </ButtonContainer>
       <div>
         <StudyDetailItemContainer>

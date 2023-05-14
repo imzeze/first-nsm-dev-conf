@@ -1,22 +1,15 @@
 import styled from '@emotion/styled';
-import { useEffect, useState } from 'react';
-import { useSetRecoilState } from 'recoil';
+import { useState } from 'react';
 
 import { StudyItem } from '@/app/components/molecules';
 import { useLocalStorage } from '@/app/hooks/useLocalStorage';
 import { useFilterStudies } from '@/app/hooks/useStudies';
-import { MyStudyCount } from '@/app/recoil/atom';
 
 const StudyItemTable = () => {
   const [category, setCategory] = useState('');
   const [keyword, setKeyword] = useState('');
-  const setMyStudyCount = useSetRecoilState(MyStudyCount);
-  const { data, isLoading } = useFilterStudies({ category, keyword });
+  const { data, isLoading } = useFilterStudies({ category, search: keyword });
   const { storedValue, addValue, removeValue } = useLocalStorage('myStudy');
-
-  useEffect(() => {
-    if (storedValue) setMyStudyCount(Object.keys(storedValue).length);
-  }, [storedValue, setMyStudyCount]);
 
   if (isLoading) return <div>Loading</div>;
   return (
@@ -24,6 +17,7 @@ const StudyItemTable = () => {
       <SearchItemContainer>
         <div>
           <select
+            value={category}
             defaultValue={''}
             onChange={(e) => setCategory(e.target.value)}
           >
@@ -34,7 +28,11 @@ const StudyItemTable = () => {
           </select>
         </div>
         <div>
-          <input type="text" onChange={(e) => setKeyword(e.target.value)} />
+          <input
+            value={keyword}
+            type="text"
+            onChange={(e) => setKeyword(e.target.value)}
+          />
         </div>
       </SearchItemContainer>
       <div>

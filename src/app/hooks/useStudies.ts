@@ -24,9 +24,9 @@ const useStudies = () => {
   });
 };
 
-const useFilterStudies = (filter: { [key: string]: string }) => {
+const useFilterStudies = (filter: { category: string; search: string }) => {
   return useQuery({
-    queryKey: [STUDY_KEY.LIST(Object.keys(filter).join(', '))],
+    queryKey: [filter.category, filter.search],
     queryFn: () => fetchStudiesFilter(filter),
   });
 };

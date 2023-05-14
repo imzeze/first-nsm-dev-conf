@@ -1,4 +1,7 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
+import { useRecoilState } from 'recoil';
+
+import { MyStudy } from '@/app/recoil/atom';
 
 export function useLocalStorage<T>(key: string): {
   storedValue: { [key: string]: T } | null;
@@ -7,15 +10,7 @@ export function useLocalStorage<T>(key: string): {
   removeValue: (key: string) => void;
   clearValue: () => void;
 } {
-  const [storedValue, setStoredValue] = useState<{ [key: string]: T } | null>(
-    () => {
-      if (typeof window === 'undefined') {
-        return null;
-      }
-      const item = window.localStorage.getItem(key);
-      return item ? JSON.parse(item) : null;
-    },
-  );
+  const [storedValue, setStoredValue] = useRecoilState(MyStudy);
 
   const addValue = (value: { [key: string]: T }) => {
     setStoredValue((prev) => {
@@ -41,6 +36,13 @@ export function useLocalStorage<T>(key: string): {
   const clearValue = () => {
     setStoredValue(null);
   };
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const item = window.localStorage.getItem(key);
+      setStoredValue(() => (item ? JSON.parse(item) : null));
+    }
+  }, [key, setStoredValue]);
 
   useEffect(() => {
     localStorage.setItem(key, JSON.stringify(storedValue));

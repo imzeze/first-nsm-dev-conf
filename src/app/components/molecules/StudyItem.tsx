@@ -16,7 +16,7 @@ const StudyItem = ({
 }: StudyItemProps) => {
   const [isMyStudy, setMyStudy] = useState(
     storedValue &&
-      Object.keys(storedValue).findIndex((id) => id === `${data.id}`) > 0,
+      Object.keys(storedValue).findIndex((id) => id === `${data.id}`) >= 0,
   );
 
   return (

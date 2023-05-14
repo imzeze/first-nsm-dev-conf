@@ -35,4 +35,9 @@ const PinkPrimary = styled(Button)`
   color: white;
 `;
 
-export { PinkPrimary };
+const Cancel = styled(Button)`
+  background: var(--painBlue);
+  color: white;
+`;
+
+export { Cancel, PinkPrimary };

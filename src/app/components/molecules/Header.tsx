@@ -3,10 +3,11 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRecoilValue } from 'recoil';
 
-import { MyStudyCount } from '@/app/recoil/atom';
+import { MyStudy } from '@/app/recoil/atom';
 
 const Header = () => {
-  const myStudyCount = useRecoilValue(MyStudyCount);
+  const myStudy = useRecoilValue(MyStudy);
+  const myStudyCount = myStudy ? Object.keys(myStudy).length : 0;
 
   return (
     <div>
