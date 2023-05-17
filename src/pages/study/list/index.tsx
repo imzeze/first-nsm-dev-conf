@@ -1,15 +1,7 @@
-import { GetServerSideProps } from 'next';
-
 import { MainLayout } from '@/app/components/layouts';
 import StudyListTemplate from '@/app/components/templates/StudyListTemplate';
 
-const StudyListPage = ({
-  category,
-  keyword,
-}: {
-  category: string;
-  keyword: string;
-}) => {
+const StudyListPage = () => {
   return <StudyListTemplate />;
 };
 

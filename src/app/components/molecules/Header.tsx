@@ -12,9 +12,11 @@ const Header = () => {
   return (
     <div>
       <HeaderTemplate>
-        <Image src="/images/logo.png" width={72} height={72} alt="logo" />
+        <Link href="/">
+          <Image src="/images/logo.png" width={72} height={72} alt="logo" />
+        </Link>
         <LinkTemplate>
-          <Link href="/study/item?id=1">
+          <Link href="/study/my">
             <CustomLink type="pink">
               내 강의 &#123;{myStudyCount}
               &#125;

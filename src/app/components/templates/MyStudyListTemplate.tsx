@@ -2,10 +2,15 @@
 
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
+import { useRecoilValue } from 'recoil';
 
-import StudyItemTableHeader from '@/app/components/organisms/StudyItemTableHeader';
+import MyStudyItemTable from '@/app/components/organisms/MyStudyItemTable';
+import { MyStudy } from '@/app/recoil/atom';
 
-const StudyListTemplate = () => {
+const MyStudyListTemplate = () => {
+  const myStudy = useRecoilValue(MyStudy);
+  const myStudyCount = myStudy ? Object.keys(myStudy).length : 0;
+
   return (
     <ListContainer>
       <h1>
@@ -14,14 +19,14 @@ const StudyListTemplate = () => {
             color: var(--white);
           `}
         >
-          CONF.
+          MY
         </p>
         <p
           css={css`
             color: var(--pink);
           `}
         >
-          LIST
+          CONF &#123;{myStudyCount}&#125;
         </p>
       </h1>
       <div
@@ -29,14 +34,14 @@ const StudyListTemplate = () => {
           margin-top: 60px;
         `}
       >
-        <StudyItemTableHeader />
+        <MyStudyItemTable />
       </div>
     </ListContainer>
   );
 };
 
-export default StudyListTemplate;
-
 const ListContainer = styled.div`
   padding: 60px 0;
 `;
+
+export default MyStudyListTemplate;
